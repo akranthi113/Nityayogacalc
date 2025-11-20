@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nitya Yoga Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 800px;
+      margin: 24px auto;
+      padding: 0 16px;
+      background: #f5f7fa;
+      color: #222;
+      line-height: 1.5;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+    fieldset {
+      border: 1px solid #d0d7df;
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    legend {
+      padding: 0 6px;
+      font-weight: 600;
+    }
+    label { display: block; margin: 10px 0 4px; font-size: 0.95rem; }
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      font-size: 1rem;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 14px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1e4fcf;
+    }
+    .output {
+      background: white;
+      border: 1px solid #d0d7df;
+      padding: 16px;
+      margin-top: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .muted { color: #555; font-size: 0.92rem; text-align: center; margin-bottom: 20px; }
+    .mono { font-family: ui-monospace, monospace; font-size: 0.9rem; }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.35rem; }
+      .row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Nitya Yoga Calculator</h1>
+  <p class="muted">Enter Sun and Moon positions (sign + degree + minute). The calculator converts them to absolute longitudes, sums, divides by 13°20′, and maps to one of the 27 Nitya Yogas.</p>
+
+  <script>
+    function makeOptions(n) {
+      let out = "";
+      for (let i = 0; i <= n; i++) out += `<option>${i}</option>`;
+      return out;
+    }
+  </script>
+
+  <fieldset>
+    <legend>Sun position</legend>
+    <div class="row">
+      <div>
+        <label for="sunSign">Sign</label>
+        <select id="sunSign">
+          <option>Aries</option><option>Taurus</option><option>Gemini</option><option>Cancer</option>
+          <option>Leo</option><option>Virgo</option><option>Libra</option><option>Scorpio</option>
+          <option>Sagittarius</option><option>Capricorn</option><option>Aquarius</option><option>Pisces</option>
+        </select>
+      </div>
+      <div>
+        <label for="sunDeg">Degrees (0–29)</label>
+        <select id="sunDeg"></select>
+        <script>document.getElementById("sunDeg").innerHTML = makeOptions(29);</script>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="sunMin">Minutes (0–59)</label>
+        <select id="sunMin"></select>
+        <script>document.getElementById("sunMin").innerHTML = makeOptions(59);</script>
+      </div>
+      <div>
+        <label for="sunSec">Seconds (0–59)</label>
+        <select id="sunSec"></select>
+        <script>document.getElementById("sunSec").innerHTML = makeOptions(59);</script>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Moon position</legend>
+    <div class="row">
+      <div>
+        <label for="moonSign">Sign</label>
+        <select id="moonSign">
+          <option>Aries</option><option>Taurus</option><option>Gemini</option><option>Cancer</option>
+          <option>Leo</option><option>Virgo</option><option>Libra</option><option>Scorpio</option>
+          <option>Sagittarius</option><option>Capricorn</option><option>Aquarius</option><option>Pisces</option>
+        </select>
+      </div>
+      <div>
+        <label for="moonDeg">Degrees (0–29)</label>
+        <select id="moonDeg"></select>
+        <script>document.getElementById("moonDeg").innerHTML = makeOptions(29);</script>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="moonMin">Minutes (0–59)</label>
+        <select id="moonMin"></select>
+        <script>document.getElementById("moonMin").innerHTML = makeOptions(59);</script>
+      </div>
+      <div>
+        <label for="moonSec">Seconds (0–59)</label>
+        <select id="moonSec"></select>
+        <script>document.getElementById("moonSec").innerHTML = makeOptions(59);</script>
+      </div>
+    </div>
+  </fieldset>
+
+  <button id="calcBtn">Calculate Nitya Yoga</button>
+  <button id="clearBtn" style="margin-top:12px;width:100%;padding:12px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">Clear</button>
+
+  <div class="output" id="output">
+    <div id="details" class="mono"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const signOffsets = {
+      "Aries": 0, "Taurus": 30, "Gemini": 60, "Cancer": 90,
+      "Leo": 120, "Virgo": 150, "Libra": 180, "Scorpio": 210,
+      "Sagittarius": 240, "Capricorn": 270, "Aquarius": 300, "Pisces": 330
+    };
+
+    const nityaYogas = [
+      "Vishkambha","Priti","Ayushman","Saubhagya","Shobhana","Atiganda","Sukarman","Dhriti","Shoola",
+      "Ganda","Vriddhi","Dhruva","Vyaghata","Harshana","Vajra","Siddhi","Vyatipata","Vaidhriti",
+      "Shubha","Shukla","Brahma","Indra","Vaishnava","Garaja","Rudra","Ahi","Mitra"
+    ];
+
+    function toAbsoluteLongitude(sign, deg, min, sec) {
+      const offset = signOffsets[sign];
+      return offset + Number(deg) + Number(min) / 60 + Number(sec) / 3600;
+    }
+
+    function calcNityaYoga() {
+      const SD = sunDeg.value, SM = sunMin.value, SS = sunSec.value;
+      const MD = moonDeg.value, MM = moonMin.value, MS = moonSec.value;
+
+      const sunLon = toAbsoluteLongitude(sunSign.value, SD, SM, SS);
+      const moonLon = toAbsoluteLongitude(moonSign.value, MD, MM, MS);
+
+      const total = sunLon + moonLon;
+      const unit = 13 + 20/60;
+
+      const quotient = total / unit;
+      const index = Math.floor(quotient % 27) + 1;
+      const yogaName = nityaYogas[index - 1];
+
+      details.textContent =
+        `Sun = ${sunSign.value} ${SD}°${SM}′${SS}″ → ${sunLon.toFixed(3)}°\nMoon = ${moonSign.value} ${MD}°${MM}′${MS}″ → ${moonLon.toFixed(3)}°\nSum = ${total.toFixed(3)}° | Unit = 13°20′ | Quotient = ${quotient.toFixed(3)} | Mod 27 = ${(quotient % 27).toFixed(3)}`;
+
+      result.innerHTML = `<strong>Nitya Yoga:</strong> ${index} — <strong>${yogaName}</strong>`;
+    }
+
+    clearBtn.addEventListener("click", function(){
+      document.getElementById("sunDeg").value = 0;
+      document.getElementById("sunMin").value = 0;
+      document.getElementById("sunSec").value = 0;
+      document.getElementById("moonDeg").value = 0;
+      document.getElementById("moonMin").value = 0;
+      document.getElementById("moonSec").value = 0;
+      details.textContent = "";
+      result.textContent = "";
+      document.getElementById("infoBlock").style.display = "none";
+    });
+
+    calcBtn.addEventListener("click", calcNityaYoga);
+  </script>
+  <button id="showInfo" style="margin-top:20px;width:100%;padding:12px;background:#334155;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">Show Details of 27 Nitya Yogas</button>
+
+  <div id="infoBlock" style="display:none;margin-top:20px;background:#fff;border:1px solid #d0d7df;padding:16px;border-radius:12px;max-height:400px;overflow-y:auto;">
+    <h2 style="font-size:1.2rem;margin-bottom:12px;">Characteristics and Benefits of 27 Nithya Yoga</h2>
+    <div>
+      <!-- Yoga details inserted here -->
+      <p>1. Vishkumbha Yoga: Vishkumbha deciphers to a poisonous pot and is deemed to be a mixed yoga...</p>
+      <p>2. Preeti Yoga: The meaning of Preeti is devotion, promoting love, harmony, and positive relationships...</p>
+      <p>3. Ayushman Yoga: Ayushman means a healthy and long life, related to vitality and well-being...</p>
+      <p>4. Saubhagya Yoga: Saubhagya means good fortune and prosperity, bringing success and opportunities...</p>
+      <p>5. Shobhana Yoga: Shobhana denotes magnificent or auspicious, symbolizing charm and elegance...</p>
+      <p>6. Atiganda Yoga: Atiganda indicates obstructions and hardships, strengthening perseverance...</p>
+      <p>7. Sukarma Yoga: Sukarma means virtuous actions, encouraging ethical conduct and goodwill...</p>
+      <p>8. Dhriti Yoga: Dhriti denotes patience and dedication, supporting stability and endurance...</p>
+      <p>9. Shoola Yoga: Shoola indicates conflict, giving natives strong conflict‑resolution skills...</p>
+      <p>10. Ganda Yoga: Ganda symbolizes risk, improving awareness and preparedness...</p>
+      <p>11. Vriddhi Yoga: Vriddhi denotes growth and development, bringing expansion and progress...</p>
+      <p>12. Dhruva Yoga: Dhruva means immovable, supporting consistency and purpose...</p>
+      <p>13. Vyaghata Yoga: Vyaghata indicates obstacles, enhancing resilience and problem‑solving...</p>
+      <p>14. Harshana Yoga: Harshana means happiness, encouraging positivity and joy...</p>
+      <p>15. Vajra Yoga: Vajra symbolizes power and mental toughness...</p>
+      <p>16. Siddhi Yoga: Siddhi means accomplishment, aiding success and goal completion...</p>
+      <p>17. Vyatipata Yoga: An inauspicious yoga related to sudden changes, fostering adaptability...</p>
+      <p>18. Variyan Yoga: Variyan means exceptional, giving reputation and excellence...</p>
+      <p>19. Parigha Yoga: Parigha means barrier, strengthening problem‑solving and persistence...</p>
+      <p>20. Shiva Yoga: Shiva symbolizes compassion and auspiciousness, supporting spiritual growth...</p>
+      <p>21. Siddha Yoga: Siddha symbolizes mastery and excellence in skills...</p>
+      <p>22. Sadhya Yoga: Sadhya denotes attainable goals, supporting ambition and achievement...</p>
+      <p>23. Shubha Yoga: Shubha means auspicious, improving harmony and good fortune...</p>
+      <p>24. Shukla Yoga: Shukla denotes purity and clarity, enhancing positivity...</p>
+      <p>25. Brahma Yoga: Brahma symbolizes creativity and new beginnings...</p>
+      <p>26. Indra Yoga: Indra represents leadership and influence...</p>
+      <p>27. Vaidhriti Yoga: Vaidhriti promotes unity and cooperation...</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("showInfo").addEventListener("click", function(){
+      const block = document.getElementById("infoBlock");
+      block.style.display = block.style.display === "none" ? "block" : "none";
+    });
+  </script>
+</body>
+</html>
