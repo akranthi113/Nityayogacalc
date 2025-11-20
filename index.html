@@ -335,6 +335,7 @@
     .yoga-card-description {
       color: var(--text-light);
       font-size: 0.95rem;
+      line-height: 1.5;
     }
 
     .hidden {
@@ -504,40 +505,44 @@
       "Sagittarius": 240, "Capricorn": 270, "Aquarius": 300, "Pisces": 330
     };
 
+    // Corrected order of Nitya Yogas
     const nityaYogas = [
-      "Vishkambha", "Priti", "Ayushman", "Saubhagya", "Shobhana", "Atiganda", "Sukarman", "Dhriti", "Shoola",
-      "Ganda", "Vriddhi", "Dhruva", "Vyaghata", "Harshana", "Vajra", "Siddhi", "Vyatipata", "Vaidhriti",
-      "Shubha", "Shukla", "Brahma", "Indra", "Vaishnava", "Garaja", "Rudra", "Ahi", "Mitra"
+      "Vishkumbha", "Preeti", "Ayushman", "Saubhagya", "Shobhana", 
+      "Atiganda", "Sukarma", "Dhriti", "Shoola", "Ganda", 
+      "Vriddhi", "Dhruva", "Vyaghata", "Harshana", "Vajra", 
+      "Siddhi", "Vyatipata", "Variyan", "Parigha", "Shiva", 
+      "Siddha", "Sadhya", "Shubha", "Shukla", "Brahma", 
+      "Indra", "Vaidhriti"
     ];
 
     const yogaDescriptions = [
-      "Vishkumbha deciphers to a poisonous pot and is deemed to be a mixed yoga.",
-      "The meaning of Preeti is devotion, promoting love, harmony, and positive relationships.",
-      "Ayushman means a healthy and long life, related to vitality and well-being.",
-      "Saubhagya means good fortune and prosperity, bringing success and opportunities.",
-      "Shobhana denotes magnificent or auspicious, symbolizing charm and elegance.",
-      "Atiganda indicates obstructions and hardships, strengthening perseverance.",
-      "Sukarma means virtuous actions, encouraging ethical conduct and goodwill.",
-      "Dhriti denotes patience and dedication, supporting stability and endurance.",
-      "Shoola indicates conflict, giving natives strong conflict-resolution skills.",
-      "Ganda symbolizes risk, improving awareness and preparedness.",
-      "Vriddhi denotes growth and development, bringing expansion and progress.",
-      "Dhruva means immovable, supporting consistency and purpose.",
-      "Vyaghata indicates obstacles, enhancing resilience and problem-solving.",
-      "Harshana means happiness, encouraging positivity and joy.",
-      "Vajra symbolizes power and mental toughness.",
-      "Siddhi means accomplishment, aiding success and goal completion.",
-      "An inauspicious yoga related to sudden changes, fostering adaptability.",
-      "Vaidhriti promotes unity and cooperation.",
-      "Shubha means auspicious, improving harmony and good fortune.",
-      "Shukla denotes purity and clarity, enhancing positivity.",
-      "Brahma symbolizes creativity and new beginnings.",
-      "Indra represents leadership and influence.",
-      "Vaishnava denotes devotion and spiritual connection.",
-      "Garaja symbolizes strength and determination.",
-      "Rudra represents transformation and intensity.",
-      "Ahi symbolizes wisdom and insight.",
-      "Mitra means friendship, promoting harmony and cooperation."
+      "Vishkumbha deciphers to a 'poisonous pot' and is deemed to be a mixed yoga, bringing both challenges and opportunities. Thus, one experiences situations testing their resilience and problem-solving capabilities. The natives born under the Vishkumbha Yoga can easily overcome difficult situations and arise stronger from hardships.",
+      "The meaning of Preeti is devotion, and it is a yoga promoting love, harmony, and positive relationships. Natives born under this yoga are usually warm, pleasant, and understanding. As this yoga fosters a loving and caring personality, the natives improve interpersonal relationships and build a harmonious environment around them, thus building a robust and lasting bond.",
+      "Ayushman means a healthy and long life. This yoga is related to energy, vitality, and overall well-being. According to the Nithya yoga astrology, this yoga contributes to an energetic and robust life for the natives, enabling them to pursue their goals with passion.",
+      "Saubhagya means good fortune and prosperity. Hence, this yoga fetches fortune, wealth, and success in various initiatives. The natives born under this yoga hold high luck and financial success. Moreover, this yoga draws favorable opportunities and accomplishes prosperity.",
+      "Shobhana denotes magnificent or auspicious. This yoga represents charm, beauty, and elegance. The natives born under this yoga hold a magnetic personality and relish social success. They are admired and liked, which further helps them grab new opportunities.",
+      "Atiganda is a yoga that is challenging and related to obstructions and hardships. The natives born under this yoga are often tested for their determination and perseverance, thus promoting inner strength and capacity to overpower challenges. Thus, this helps them become innovative and resilient in adversities.",
+      "Sukarma means virtuous and good actions. This yoga facilitates ethical conduct and favorable contributions to society by the individuals. The natives born under this yoga are showered with admiration and respect and hold a good reputation.",
+      "Dhriti denotes patience and dedication. This yoga facilitates stability and endurance. The natives born under this yoga have the capacity to remain calm even under pressure and strive through challenges, facilitating a stable and grounded approach to life.",
+      "Shoola means trident or thorn, indicating the potential for conflict and battles. The natives born under this yoga have the power to manage disputes and disputes effectively as this yoga hones conflict-resolution abilities and improves mental resilience.",
+      "Ganda symbolizes risk or obstruction. Hence, this yoga fetches attention to viable dangers and challenges. As the natives born under Ganda Yoga can navigate risks and challenges with carefulness, this yoga can help enhance awareness and prepare natives to endure hardships proactively.",
+      "Vriddhi denotes growth and development. This yoga presents prospects for personal and professional development. Vriddhi Yoga fetches many opportunities for growth and success. The natives born under this yoga assumably undergo significant personal and professional advancements.",
+      "Dhruva means consistent or immovable. This yoga symbolizes solidity, endurance, and a strong sense of purpose. The natives born under this yoga are reliable, have a strong sense of purpose, and stay focused on their goals, consistently attaining progress and achievement.",
+      "Vyaghata denotes obstacles or damage. This yoga reveals probable barriers and restrictions. The natives born under this yoga have strong problem-solving aptitudes and strength against adversities. They can overcome obstructions and emerge more powerful from challenges.",
+      "As the term Harshana means happiness, this yoga fetches individuals joy and a positive outlook on life. The natives born under this yoga encounter pleasure and contentment, facilitating an optimistic attitude and contributing to overall well-being.",
+      "Vajra represents a diamond or thunderbolt and denotes power and invincibility. The natives born under this yoga have the ability to defy challenges and hold mental fortitude. Moreover, the resilience and inner strength of the natives are enhanced, making them determined even in adversities.",
+      "Siddhi denotes success or accomplishment. This yoga symbolizes the culmination of goals and achievements. The natives born under this yoga achieve success in their endeavors and accomplish their goals. They can even encounter substantial achievements and triumphs in their lives.",
+      "Considered to be an inauspicious yoga, the Vyatipata is related to disturbances and sudden changes. This yoga acquaints adaptability and the capability to manage unexpected changes. The natives born under this yoga should be flexible and resilient, which shall help them to navigate the uncertainties of life.",
+      "The term Variyan means beneficial or exceptional. This yoga symbolizes high value and excellence and obtains admiration and respect for the individuals. The natives born under this yoga maintain a good reputation and value, which further gets them praise from others.",
+      "Parigha means barrier or hindrance. Thus, this yoga highlights delays and blockages. It develops problem-solving abilities and renders the strength to overpower obstacles. The natives born under this yoga learn to navigate obstacles with perseverance and persistence.",
+      "As Shiva means compassionate and auspicious, this yoga conveys positive shifts, peace, and spiritual growth. The natives born under this Nithya Yoga, as per astrology, are known to witness spiritual enlightenment and inner peace.",
+      "Siddha represents perfected or accomplished and indicates proficiency and excellence in various skills. The natives born under this yoga acquire mastery and perfection and boost the ability of the natives to thrive in their chosen fields.",
+      "The term Sadhya means obtainable. This yoga denotes the actualization of the ambitions and goals of the individuals. The natives born under this yoga can fulfill their desired goals and have a noteworthy advancement in their endeavors.",
+      "As Shubha means auspicious, this yoga fosters positivity and good fortune. The natives born under this yoga experience a pleasant fortune and harmonious relationships, which enriches their overall well-being and happiness.",
+      "Shukla means pure and brilliant and denotes clarity, purity, and a positive lookout. The natives born under this yoga hold an optimistic perspective on life, which helps contribute to overall happiness and satisfaction.",
+      "As the term Brahma represents creativeness, this yoga denotes innovation and new beginnings. The natives born under this yoga may undergo new beginnings and have prospects for creative presentation, leading to notable achievements.",
+      "Indra means power and leadership. Hence, this yoga represents strength, impact, and command. The natives born under this yoga can hold powerful and influential positions, leading to substantial accomplishments and honor.",
+      "Vaidhriti denotes cohesion or unity, and thus, this Nitya yoga promotes cooperation. Natives born under this yoga can hold balance and cohesion in their personal and professional relationships, contributing towards a validating and coordinated environment."
     ];
 
     function toAbsoluteLongitude(sign, deg, min, sec) {
